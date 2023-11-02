@@ -77,7 +77,7 @@ class SelectItem implements Item
      * @param bool $selected
      * @return static
      */
-    public function setSelected(bool $selected): self
+    public function setSelected(string $selected): self
     {
         $this->selected = $selected;
         return $this;
@@ -90,7 +90,7 @@ class SelectItem implements Item
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize():mixed
     {
         return get_object_vars($this);
     }

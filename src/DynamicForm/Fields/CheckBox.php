@@ -116,7 +116,7 @@ class CheckBox extends Field
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    public function jsonSerialize()
+    public function jsonSerialize():mixed
     {
         return get_object_vars($this);
     }

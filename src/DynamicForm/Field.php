@@ -35,6 +35,7 @@ abstract class Field implements \JsonSerializable, Validation, Checker
      * @var bool
     */
     protected $disabled = false;
+    protected $sentbyemail = false;
     /**
      * @var Validator[]
      */
@@ -89,6 +90,24 @@ abstract class Field implements \JsonSerializable, Validation, Checker
     public function setLabel(string $label): self
     {
         $this->label = $label;
+        return $this;
+    }
+
+        /**
+     * @return string
+     */
+    public function getSentByEmail(): bool
+    {
+        return $this->sentbyemail;
+    }
+
+    /**
+     * @param string $name
+     * @return static
+     */
+    public function setSentByEmail(bool $sendByEmail): self
+    {
+        $this->sentbyemail = $sendByEmail;
         return $this;
     }
 
@@ -204,6 +223,9 @@ abstract class Field implements \JsonSerializable, Validation, Checker
                     $messages[] = new Message($this->getName(), $validator->getMessage());
                 }
             }else{
+                if($validator instanceof Required && $value[$this->getName()] == ''){
+                    $messages[] = new Message($this->getName(), $validator->getMessage());
+                }
                 if( !$validator->isValid($value[$this->getName()], $this) ) {
                     $messages[] = new Message($this->getName(), $validator->getMessage());
                 }
